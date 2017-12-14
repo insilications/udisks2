@@ -1,0 +1,3 @@
+Configure miss: whether to enable debugging
+Configure miss: libelogind >= 219
+Configure miss: blockdev/part.h presence
