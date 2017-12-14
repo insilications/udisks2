@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.7.5
-Release  : 1
+Release  : 2
 URL      : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Source0  : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Summary  : Disk Manager
@@ -16,6 +16,12 @@ Requires: udisks2-data
 Requires: udisks2-lib
 Requires: udisks2-locales
 Requires: udisks2-doc
+Requires: libatasmart
+Requires: libblockdev
+Requires: libbytesize
+Requires: libiscsi
+Requires: libstoragemgmt
+Requires: volume_key
 BuildRequires : acl-dev
 BuildRequires : docbook-xml
 BuildRequires : gettext
@@ -116,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1513285548
+export SOURCE_DATE_EPOCH=1513295837
 %autogen --disable-static --enable-bcache --enable-btrfs --enable-lsm --enable-lvm2 --enable-lvmcache --enable-zram
 make V=1  %{?_smp_mflags}
 
@@ -128,7 +134,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1513285548
+export SOURCE_DATE_EPOCH=1513295837
 rm -rf %{buildroot}
 %make_install
 %find_lang udisks2
