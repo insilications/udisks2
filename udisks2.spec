@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.7.5
-Release  : 2
+Release  : 4
 URL      : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Source0  : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Summary  : Disk Manager
@@ -46,6 +46,7 @@ BuildRequires : pkgconfig(libconfig)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(polkit-agent-1)
 BuildRequires : pkgconfig(polkit-gobject-1)
+Patch1: 0001-Add-support-for-a-stateless-configuration-file.patch
 
 %description
 The Udisks project provides a daemon, tools and libraries to access and
@@ -116,15 +117,16 @@ locales components for the udisks2 package.
 
 %prep
 %setup -q -n udisks-udisks-2.7.5
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1513295837
+export SOURCE_DATE_EPOCH=1516733621
 %autogen --disable-static --enable-bcache --enable-btrfs --enable-lsm --enable-lvm2 --enable-lvmcache --enable-zram
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -134,7 +136,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1513295837
+export SOURCE_DATE_EPOCH=1516733621
 rm -rf %{buildroot}
 %make_install
 %find_lang udisks2
@@ -143,6 +145,7 @@ mkdir -p %{buildroot}/usr/share/dbus-1/system.d/
 cp data/org.freedesktop.UDisks2.conf %{buildroot}/usr/share/dbus-1/system.d/
 mkdir -p %{buildroot}/usr/lib/udev/rules.d/
 cp data/80-udisks2.rules %{buildroot}/usr/lib/udev/rules.d/
+install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks/udisks2.conf
 ## make_install_append end
 
 %files
@@ -167,6 +170,7 @@ cp data/80-udisks2.rules %{buildroot}/usr/lib/udev/rules.d/
 /usr/share/bash-completion/completions/udisksctl
 /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
 /usr/share/dbus-1/system.d/org.freedesktop.UDisks2.conf
+/usr/share/defaults/udisks/udisks2.conf
 /usr/share/gir-1.0/*.gir
 /usr/share/polkit-1/actions/org.freedesktop.UDisks2.bcache.policy
 /usr/share/polkit-1/actions/org.freedesktop.UDisks2.btrfs.policy
