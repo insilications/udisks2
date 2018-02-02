@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.7.5
-Release  : 4
+Release  : 5
 URL      : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Source0  : https://github.com/storaged-project/udisks/archive/udisks-2.7.5.tar.gz
 Summary  : Disk Manager
