@@ -4,4 +4,4 @@ cp data/org.freedesktop.UDisks2.conf %{buildroot}/usr/share/dbus-1/system.d/
 mkdir -p %{buildroot}/usr/lib/udev/rules.d/
 cp data/80-udisks2.rules %{buildroot}/usr/lib/udev/rules.d/
 
-install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks/udisks2.conf
+install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks2/udisks2.conf

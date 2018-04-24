@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.7.6
-Release  : 6
+Release  : 7
 URL      : https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
 Source0  : https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
 Summary  : UDisks Client Library
@@ -125,7 +125,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1518106316
+export SOURCE_DATE_EPOCH=1524529038
 %configure --disable-static --enable-bcache --enable-btrfs --enable-lsm --enable-lvm2 --enable-lvmcache --enable-zram
 make  %{?_smp_mflags}
 
@@ -137,7 +137,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1518106316
+export SOURCE_DATE_EPOCH=1524529038
 rm -rf %{buildroot}
 %make_install
 %find_lang udisks2
@@ -146,7 +146,7 @@ mkdir -p %{buildroot}/usr/share/dbus-1/system.d/
 cp data/org.freedesktop.UDisks2.conf %{buildroot}/usr/share/dbus-1/system.d/
 mkdir -p %{buildroot}/usr/lib/udev/rules.d/
 cp data/80-udisks2.rules %{buildroot}/usr/lib/udev/rules.d/
-install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks/udisks2.conf
+install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks2/udisks2.conf
 ## make_install_append end
 
 %files
@@ -171,7 +171,7 @@ install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks/udisks2.co
 /usr/share/bash-completion/completions/udisksctl
 /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
 /usr/share/dbus-1/system.d/org.freedesktop.UDisks2.conf
-/usr/share/defaults/udisks/udisks2.conf
+/usr/share/defaults/udisks2/udisks2.conf
 /usr/share/gir-1.0/*.gir
 /usr/share/polkit-1/actions/org.freedesktop.UDisks2.bcache.policy
 /usr/share/polkit-1/actions/org.freedesktop.UDisks2.btrfs.policy
