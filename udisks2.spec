@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.7.6
-Release  : 7
+Release  : 8
 URL      : https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
 Source0  : https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
 Summary  : UDisks Client Library
