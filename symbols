@@ -130,6 +130,7 @@ libudisks2.so.0:udisks_client_get_drive_info
 libudisks2.so.0:udisks_client_get_drive_siblings
 libudisks2.so.0:udisks_client_get_id_for_display
 libudisks2.so.0:udisks_client_get_job_description
+libudisks2.so.0:udisks_client_get_job_description_from_operation
 libudisks2.so.0:udisks_client_get_jobs_for_object
 libudisks2.so.0:udisks_client_get_loop_for_block
 libudisks2.so.0:udisks_client_get_manager
@@ -363,7 +364,9 @@ libudisks2.so.0:udisks_encrypted_complete_change_passphrase
 libudisks2.so.0:udisks_encrypted_complete_lock
 libudisks2.so.0:udisks_encrypted_complete_unlock
 libudisks2.so.0:udisks_encrypted_dup_child_configuration
+libudisks2.so.0:udisks_encrypted_dup_hint_encryption_type
 libudisks2.so.0:udisks_encrypted_get_child_configuration
+libudisks2.so.0:udisks_encrypted_get_hint_encryption_type
 libudisks2.so.0:udisks_encrypted_get_type
 libudisks2.so.0:udisks_encrypted_interface_info
 libudisks2.so.0:udisks_encrypted_override_properties
@@ -375,6 +378,7 @@ libudisks2.so.0:udisks_encrypted_proxy_new_for_bus_finish
 libudisks2.so.0:udisks_encrypted_proxy_new_for_bus_sync
 libudisks2.so.0:udisks_encrypted_proxy_new_sync
 libudisks2.so.0:udisks_encrypted_set_child_configuration
+libudisks2.so.0:udisks_encrypted_set_hint_encryption_type
 libudisks2.so.0:udisks_encrypted_skeleton_get_type
 libudisks2.so.0:udisks_encrypted_skeleton_new
 libudisks2.so.0:udisks_error_get_type
