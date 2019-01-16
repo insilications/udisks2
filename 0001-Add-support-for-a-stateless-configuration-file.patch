@@ -1,4 +1,4 @@
-From 4acb4fd28436b71ceac2bb1c323b0a1c6dae3d92 Mon Sep 17 00:00:00 2001
+From dee4cd0b0523c682d34f943237371ac42610cd5f Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 23 Jan 2018 18:49:46 +0000
 Subject: [PATCH] Add support for a stateless configuration file
@@ -6,14 +6,14 @@ Subject: [PATCH] Add support for a stateless configuration file
 Allow udisks to look at /usr/share/defaults/udisks/udisks2.conf in
 case the /etc/udisks/udisks2.conf file does not exist.
 ---
- src/udisksconfigmanager.c | 46 ++++++++++++++++++++++++++++++++++------------
- 1 file changed, 34 insertions(+), 12 deletions(-)
+ src/udisksconfigmanager.c | 52 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 15 deletions(-)
 
 diff --git a/src/udisksconfigmanager.c b/src/udisksconfigmanager.c
-index ab0d9de..45c79c8 100644
+index 190852ee..e1084978 100644
 --- a/src/udisksconfigmanager.c
 +++ b/src/udisksconfigmanager.c
-@@ -135,7 +135,9 @@ udisks_config_manager_constructed (GObject *object)
+@@ -171,7 +171,9 @@ udisks_config_manager_constructed (GObject *object)
    UDisksConfigManager *manager = UDISKS_CONFIG_MANAGER (object);
    GError *error = NULL;
    GKeyFile *config_file;
@@ -22,9 +22,9 @@ index ab0d9de..45c79c8 100644
 +  gchar *user_conf_filename;
 +  gchar *system_conf_filename;
    gchar *load_preference;
+   gchar *encryption;
    gchar *module_i;
-   gchar *tmp;
-@@ -147,21 +149,40 @@ udisks_config_manager_constructed (GObject *object)
+@@ -184,23 +186,42 @@ udisks_config_manager_constructed (GObject *object)
    g_key_file_set_list_separator (config_file, ',');
  
    /* Get modules and means of loading */
@@ -32,18 +32,23 @@ index ab0d9de..45c79c8 100644
 -                                    udisks_config_manager_get_uninstalled (manager) ?
 -                                      BUILD_DIR :
 -                                      PACKAGE_SYSCONF_DIR,
--                                    PROJECT_SYSCONF_DIR,
+-                                    udisks_config_manager_get_uninstalled (manager) ?
+-                                      "udisks" :
+-                                      PROJECT_SYSCONF_DIR,
 -                                    PACKAGE_NAME_UDISKS2 ".conf",
 -                                    NULL);
+-
+-  udisks_debug ("Loading configuration file: %s", conf_filename);
 +  user_conf_filename = g_build_filename (G_DIR_SEPARATOR_S,
 +                                         udisks_config_manager_get_uninstalled (manager) ?
 +                                           BUILD_DIR :
 +                                           PACKAGE_SYSCONF_DIR,
-+                                         PROJECT_SYSCONF_DIR,
++                                        udisks_config_manager_get_uninstalled (manager) ?
++                                          "udisks" :
++                                           PROJECT_SYSCONF_DIR,
 +                                         PACKAGE_NAME_UDISKS2 ".conf",
 +                                         NULL);
- 
--  udisks_debug ("Loading configuration file: %s", conf_filename);
++
 +  system_conf_filename = g_build_filename (G_DIR_SEPARATOR_S,
 +                                           "/usr/share/defaults",
 +                                           PROJECT_SYSCONF_DIR,
@@ -74,7 +79,7 @@ index ab0d9de..45c79c8 100644
      {
        modules = g_key_file_get_string_list (config_file,
                                              modules_group_name,
-@@ -230,14 +251,15 @@ udisks_config_manager_constructed (GObject *object)
+@@ -305,7 +326,7 @@ udisks_config_manager_constructed (GObject *object)
    else
      {
        g_clear_error (&error);
@@ -82,7 +87,8 @@ index ab0d9de..45c79c8 100644
 +      udisks_warning ("Can't load configuration file %s", system_conf_filename);
        manager->modules = NULL; /* NULL == '*' */
        manager->load_preference = UDISKS_MODULE_LOAD_ONDEMAND;
-     }
+       manager->encryption = UDISKS_ENCRYPTION_DEFAULT;
+@@ -313,7 +334,8 @@ udisks_config_manager_constructed (GObject *object)
  
  
    g_key_file_free (config_file);
@@ -93,5 +99,5 @@ index ab0d9de..45c79c8 100644
    if (G_OBJECT_CLASS (udisks_config_manager_parent_class))
      G_OBJECT_CLASS (udisks_config_manager_parent_class)->constructed (object);
 -- 
-2.15.1
+2.20.1
 
