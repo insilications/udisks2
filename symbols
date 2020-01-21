@@ -539,8 +539,12 @@ libudisks2.so.0:udisks_manager_complete_get_block_devices
 libudisks2.so.0:udisks_manager_complete_loop_setup
 libudisks2.so.0:udisks_manager_complete_mdraid_create
 libudisks2.so.0:udisks_manager_complete_resolve_device
+libudisks2.so.0:udisks_manager_dup_default_encryption_type
+libudisks2.so.0:udisks_manager_dup_supported_encryption_types
 libudisks2.so.0:udisks_manager_dup_supported_filesystems
 libudisks2.so.0:udisks_manager_dup_version
+libudisks2.so.0:udisks_manager_get_default_encryption_type
+libudisks2.so.0:udisks_manager_get_supported_encryption_types
 libudisks2.so.0:udisks_manager_get_supported_filesystems
 libudisks2.so.0:udisks_manager_get_type
 libudisks2.so.0:udisks_manager_get_version
@@ -553,6 +557,8 @@ libudisks2.so.0:udisks_manager_proxy_new_for_bus
 libudisks2.so.0:udisks_manager_proxy_new_for_bus_finish
 libudisks2.so.0:udisks_manager_proxy_new_for_bus_sync
 libudisks2.so.0:udisks_manager_proxy_new_sync
+libudisks2.so.0:udisks_manager_set_default_encryption_type
+libudisks2.so.0:udisks_manager_set_supported_encryption_types
 libudisks2.so.0:udisks_manager_set_supported_filesystems
 libudisks2.so.0:udisks_manager_set_version
 libudisks2.so.0:udisks_manager_skeleton_get_type

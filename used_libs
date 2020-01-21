@@ -4,7 +4,7 @@ libatasmart.so.4
 libbd_utils.so.2
 libblockdev.so.2
 libc.so.6
-libconfig.so.9
+libconfig.so.11
 libgcc_s.so.1
 libgio-2.0.so.0
 libglib-2.0.so.0

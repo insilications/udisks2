@@ -1,21 +1,25 @@
-From dee4cd0b0523c682d34f943237371ac42610cd5f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 23 Jan 2018 18:49:46 +0000
 Subject: [PATCH] Add support for a stateless configuration file
 
 Allow udisks to look at /usr/share/defaults/udisks/udisks2.conf in
 case the /etc/udisks/udisks2.conf file does not exist.
+
+[pmccarty] Rebased for udisks 2.8.4
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
  src/udisksconfigmanager.c | 52 ++++++++++++++++++++++++++++-----------
  1 file changed, 37 insertions(+), 15 deletions(-)
 
 diff --git a/src/udisksconfigmanager.c b/src/udisksconfigmanager.c
-index 190852ee..e1084978 100644
+index 72ac501..172fb45 100644
 --- a/src/udisksconfigmanager.c
 +++ b/src/udisksconfigmanager.c
-@@ -171,7 +171,9 @@ udisks_config_manager_constructed (GObject *object)
+@@ -143,7 +143,9 @@ udisks_config_manager_constructed (GObject *object)
+ {
    UDisksConfigManager *manager = UDISKS_CONFIG_MANAGER (object);
-   GError *error = NULL;
    GKeyFile *config_file;
 -  gchar *conf_filename;
 +  gchar *conf_filename = NULL;
@@ -24,7 +28,7 @@ index 190852ee..e1084978 100644
    gchar *load_preference;
    gchar *encryption;
    gchar *module_i;
-@@ -184,23 +186,42 @@ udisks_config_manager_constructed (GObject *object)
+@@ -154,17 +156,24 @@ udisks_config_manager_constructed (GObject *object)
    g_key_file_set_list_separator (config_file, ',');
  
    /* Get modules and means of loading */
@@ -58,19 +62,23 @@ index 190852ee..e1084978 100644
 +
 +  udisks_debug ("Loading configuration file: %s", user_conf_filename);
  
+   if (manager->modules)
+     {
+@@ -176,9 +185,21 @@ udisks_config_manager_constructed (GObject *object)
+ 
    /* Load config */
    if (g_key_file_load_from_file (config_file,
 -                                 conf_filename,
 +                                 user_conf_filename,
                                   G_KEY_FILE_NONE,
-                                  &error))
+                                  NULL))
 +    {
 +      conf_filename = user_conf_filename;
 +    }
 +  else if (g_key_file_load_from_file (config_file,
 +                                      system_conf_filename,
 +                                      G_KEY_FILE_NONE,
-+                                      &error))
++                                      NULL))
 +    {
 +      conf_filename = system_conf_filename;
 +    }
@@ -78,17 +86,14 @@ index 190852ee..e1084978 100644
 +  if (conf_filename)
      {
        modules = g_key_file_get_string_list (config_file,
-                                             modules_group_name,
-@@ -305,7 +326,7 @@ udisks_config_manager_constructed (GObject *object)
+                                             MODULES_GROUP_NAME,
+@@ -262,12 +283,13 @@ udisks_config_manager_constructed (GObject *object)
+     }
    else
      {
-       g_clear_error (&error);
 -      udisks_warning ("Can't load configuration file %s", conf_filename);
 +      udisks_warning ("Can't load configuration file %s", system_conf_filename);
-       manager->modules = NULL; /* NULL == '*' */
-       manager->load_preference = UDISKS_MODULE_LOAD_ONDEMAND;
-       manager->encryption = UDISKS_ENCRYPTION_DEFAULT;
-@@ -313,7 +334,8 @@ udisks_config_manager_constructed (GObject *object)
+     }
  
  
    g_key_file_free (config_file);
@@ -98,6 +103,3 @@ index 190852ee..e1084978 100644
  
    if (G_OBJECT_CLASS (udisks_config_manager_parent_class))
      G_OBJECT_CLASS (udisks_config_manager_parent_class)->constructed (object);
--- 
-2.20.1
-
