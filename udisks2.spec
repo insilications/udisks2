@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.8.4
-Release  : 13
+Release  : 14
 URL      : https://github.com/storaged-project/udisks/releases/download/udisks-2.8.4/udisks-2.8.4.tar.bz2
 Source0  : https://github.com/storaged-project/udisks/releases/download/udisks-2.8.4/udisks-2.8.4.tar.bz2
 Summary  : UDisks Client Library
@@ -54,6 +54,7 @@ BuildRequires : pkgconfig(mount)
 BuildRequires : pkgconfig(polkit-agent-1)
 BuildRequires : pkgconfig(polkit-gobject-1)
 Patch1: 0001-Add-support-for-a-stateless-configuration-file.patch
+Patch2: backport-encoding.patch
 
 %description
 CI status
@@ -168,13 +169,14 @@ services components for the udisks2 package.
 %setup -q -n udisks-2.8.4
 cd %{_builddir}/udisks-2.8.4
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1579635003
+export SOURCE_DATE_EPOCH=1584369487
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -191,7 +193,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1579635003
+export SOURCE_DATE_EPOCH=1584369487
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/udisks2
 cp %{_builddir}/udisks-2.8.4/COPYING %{buildroot}/usr/share/package-licenses/udisks2/83b927c3fa44af01d2515ea8575f8d4848cc10ec
