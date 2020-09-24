@@ -4,7 +4,7 @@
 #
 Name     : udisks2
 Version  : 2.8.4
-Release  : 14
+Release  : 15
 URL      : https://github.com/storaged-project/udisks/releases/download/udisks-2.8.4/udisks-2.8.4.tar.bz2
 Source0  : https://github.com/storaged-project/udisks/releases/download/udisks-2.8.4/udisks-2.8.4.tar.bz2
 Summary  : UDisks Client Library
