@@ -17,3 +17,4 @@ libpolkit-gobject-1.so.0
 libpthread.so.0
 libstoragemgmt.so.1
 libsystemd.so.0
+libuuid.so.1
