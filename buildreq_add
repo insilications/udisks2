@@ -5,3 +5,4 @@ gobject-introspection-dev
 libstoragemgmt-dev
 libconfig-dev
 libiscsi-dev
+LVM2-dev
