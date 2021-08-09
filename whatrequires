@@ -3,3 +3,4 @@ clr-init
 gvfs
 gvfs-tests
 udisks2-dev
+udisks2-staticdev
