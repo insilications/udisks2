@@ -1,0 +1,6 @@
+--enable-bcache
+--enable-btrfs
+--disable-lsm
+--disable-lvm2
+--disable-lvmcache
+--disable-zram

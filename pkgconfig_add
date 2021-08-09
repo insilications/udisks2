@@ -1,2 +1,14 @@
 # This file contains additional pkgconfig build requirements that did
 # not get picked up automatically. One name per line, no whitespace.
+blockdev
+gio-unix-2.0
+glib-2.0
+gmodule-2.0
+gudev-1.0
+libatasmart
+libconfig
+libsystemd
+mount
+polkit-agent-1
+polkit-gobject-1
+uuid

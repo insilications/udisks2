@@ -1,5 +1,6 @@
 PKG_NAME := udisks2
-URL = https://github.com/storaged-project/udisks/releases/download/udisks-2.9.2/udisks-2.9.2.tar.bz2
+URL = https://github.com/storaged-project/udisks.git
 ARCHIVES = 
+ARCHIVES_GIT = 
 
 include ../common/Makefile.common
