@@ -16,6 +16,8 @@ gnome-common-dev
 gobject-introspection-dev
 gtk-doc
 gtk-doc-dev
+keyutils
+keyutils-dev
 libatasmart
 libblockdev
 libblockdev-dev

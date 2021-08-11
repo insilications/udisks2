@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : udisks2
 Version  : 2.9.2
-Release  : 22
+Release  : 23
 URL      : file:///aot/build/clearlinux/packages/udisks2/udisks2-v2.9.2.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/udisks2/udisks2-v2.9.2.tar.gz
 Summary  : Disk Manager
@@ -42,6 +42,8 @@ BuildRequires : gnome-common-dev
 BuildRequires : gobject-introspection-dev
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
+BuildRequires : keyutils
+BuildRequires : keyutils-dev
 BuildRequires : libatasmart
 BuildRequires : libblockdev
 BuildRequires : libblockdev-dev
@@ -191,7 +193,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1628698629
+export SOURCE_DATE_EPOCH=1628699614
 export GCC_IGNORE_WERROR=1
 ## altflags1 content
 export CFLAGS="-g3 -ggdb -O3 --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -fexceptions -static-libstdc++ -static-libgcc -Wl,--build-id=sha1"
@@ -276,7 +278,7 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1628698629
+export SOURCE_DATE_EPOCH=1628699614
 rm -rf %{buildroot}
 %make_install
 %find_lang udisks2
