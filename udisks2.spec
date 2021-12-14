@@ -11,6 +11,14 @@ Source0  : file:///aot/build/clearlinux/packages/udisks2/udisks2-v2.9.4.tar.gz
 Summary  : Disk Manager
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+ LGPL-2.0+ LGPL-2.1+
+Requires: udisks2-bin = %{version}-%{release}
+Requires: udisks2-config = %{version}-%{release}
+Requires: udisks2-data = %{version}-%{release}
+Requires: udisks2-lib = %{version}-%{release}
+Requires: udisks2-libexec = %{version}-%{release}
+Requires: udisks2-locales = %{version}-%{release}
+Requires: udisks2-man = %{version}-%{release}
+Requires: udisks2-services = %{version}-%{release}
 Requires: libatasmart
 Requires: libblockdev
 Requires: libbytesize
@@ -70,7 +78,6 @@ BuildRequires : lz4-dev
 BuildRequires : lz4-staticdev
 BuildRequires : ncurses-dev
 BuildRequires : perl(XML::Parser)
-BuildRequires : pkgconfig(blkid)
 BuildRequires : pkgconfig(blockdev)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(glib-2.0)
@@ -105,6 +112,99 @@ Patch1: 0001-Add-support-for-a-stateless-configuration-file.patch
 The Udisks project provides a daemon, tools and libraries to access and
 manipulate disks, storage devices and technologies.
 
+%package bin
+Summary: bin components for the udisks2 package.
+Group: Binaries
+Requires: udisks2-data = %{version}-%{release}
+Requires: udisks2-libexec = %{version}-%{release}
+Requires: udisks2-config = %{version}-%{release}
+Requires: udisks2-services = %{version}-%{release}
+
+%description bin
+bin components for the udisks2 package.
+
+
+%package config
+Summary: config components for the udisks2 package.
+Group: Default
+
+%description config
+config components for the udisks2 package.
+
+
+%package data
+Summary: data components for the udisks2 package.
+Group: Data
+
+%description data
+data components for the udisks2 package.
+
+
+%package dev
+Summary: dev components for the udisks2 package.
+Group: Development
+Requires: udisks2-lib = %{version}-%{release}
+Requires: udisks2-bin = %{version}-%{release}
+Requires: udisks2-data = %{version}-%{release}
+Provides: udisks2-devel = %{version}-%{release}
+Requires: udisks2 = %{version}-%{release}
+
+%description dev
+dev components for the udisks2 package.
+
+
+%package lib
+Summary: lib components for the udisks2 package.
+Group: Libraries
+Requires: udisks2-data = %{version}-%{release}
+Requires: udisks2-libexec = %{version}-%{release}
+
+%description lib
+lib components for the udisks2 package.
+
+
+%package libexec
+Summary: libexec components for the udisks2 package.
+Group: Default
+Requires: udisks2-config = %{version}-%{release}
+
+%description libexec
+libexec components for the udisks2 package.
+
+
+%package locales
+Summary: locales components for the udisks2 package.
+Group: Default
+
+%description locales
+locales components for the udisks2 package.
+
+
+%package man
+Summary: man components for the udisks2 package.
+Group: Default
+
+%description man
+man components for the udisks2 package.
+
+
+%package services
+Summary: services components for the udisks2 package.
+Group: Systemd services
+
+%description services
+services components for the udisks2 package.
+
+
+%package staticdev
+Summary: staticdev components for the udisks2 package.
+Group: Default
+Requires: udisks2-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the udisks2 package.
+
+
 %prep
 %setup -q -n udisks2
 cd %{_builddir}/udisks2
@@ -116,7 +216,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639482707
+export SOURCE_DATE_EPOCH=1639482843
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -258,9 +358,10 @@ fi
 
 
 %install
-export SOURCE_DATE_EPOCH=1639482707
+export SOURCE_DATE_EPOCH=1639482843
 rm -rf %{buildroot}
 %make_install
+%find_lang udisks2
 ## install_append content
 mkdir -p %{buildroot}/usr/share/dbus-1/system.d/
 cp data/org.freedesktop.UDisks2.conf %{buildroot}/usr/share/dbus-1/system.d/
@@ -272,4 +373,78 @@ install -D udisks/udisks2.conf %{buildroot}/usr/share/defaults/udisks2/udisks2.c
 ## install_append end
 
 %files
+%defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/udisksctl
+/usr/bin/umount.udisks2
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/tmpfiles.d/udisks2.conf
+/usr/lib/udev/rules.d/80-udisks2.rules
+
+%files data
+%defattr(-,root,root,-)
+/usr/lib64/girepository-1.0/UDisks-2.0.typelib
+/usr/share/bash-completion/completions/udisksctl
+/usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
+/usr/share/dbus-1/system.d/org.freedesktop.UDisks2.conf
+/usr/share/defaults/udisks2/udisks2.conf
+/usr/share/gir-1.0/*.gir
+/usr/share/polkit-1/actions/org.freedesktop.UDisks2.bcache.policy
+/usr/share/polkit-1/actions/org.freedesktop.UDisks2.btrfs.policy
+/usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
+/usr/share/zsh/site-functions/_udisks2
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/udisks2/udisks/udisks-generated.h
+/usr/include/udisks2/udisks/udisks.h
+/usr/include/udisks2/udisks/udisksclient.h
+/usr/include/udisks2/udisks/udisksenums.h
+/usr/include/udisks2/udisks/udisksenumtypes.h
+/usr/include/udisks2/udisks/udiskserror.h
+/usr/include/udisks2/udisks/udisksobjectinfo.h
+/usr/include/udisks2/udisks/udiskstypes.h
+/usr/include/udisks2/udisks/udisksversion.h
+/usr/lib64/libudisks2.la
+/usr/lib64/libudisks2.so
+/usr/lib64/pkgconfig/udisks2-bcache.pc
+/usr/lib64/pkgconfig/udisks2-btrfs.pc
+/usr/lib64/pkgconfig/udisks2.pc
+/usr/lib64/udisks2/modules/libudisks2_bcache.la
+/usr/lib64/udisks2/modules/libudisks2_bcache.so
+/usr/lib64/udisks2/modules/libudisks2_btrfs.la
+/usr/lib64/udisks2/modules/libudisks2_btrfs.so
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libudisks2.so.0
+/usr/lib64/libudisks2.so.0.0.0
+
+%files libexec
+%defattr(-,root,root,-)
+/usr/libexec/udisks2/udisksd
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/udisksctl.1
+/usr/share/man/man5/udisks2.conf.5
+/usr/share/man/man8/udisks.8
+/usr/share/man/man8/udisksd.8
+/usr/share/man/man8/umount.udisks2.8
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/udisks2.service
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libudisks2.a
+/usr/lib64/udisks2/modules/libudisks2_bcache.a
+/usr/lib64/udisks2/modules/libudisks2_btrfs.a
+
+%files locales -f udisks2.lang
 %defattr(-,root,root,-)
