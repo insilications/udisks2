@@ -4,11 +4,5 @@ Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: libelogind >= 219
 Configure miss: libelogind >= 219
-Configure miss: msgfmt
-Configure miss: msgfmt
-Configure miss: msgmerge
-Configure miss: msgmerge
 Configure miss: whether to enable debugging
 Configure miss: whether to enable debugging
-Configure miss: xgettext
-Configure miss: xgettext
