@@ -27,9 +27,10 @@ gtk-doc
 gtk-doc-dev
 keyutils
 keyutils-dev
+kmod-dev
 libatasmart
-libblockdev
 libblockdev-dev
+libblockdev-staticdev
 libbytesize
 libcap-dev
 libcap-staticdev
