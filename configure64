@@ -4,3 +4,7 @@
 --disable-lvm2
 --disable-lvmcache
 --disable-zram
+--enable-shared
+--enable-static
+--with-udevdir=/usr/lib/udev
+--with-systemdsystemunitdir=/usr/lib/systemd/system

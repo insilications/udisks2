@@ -1,7 +1,12 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+LVM2-dev
+acl
 acl-dev
 acl-staticdev
+attr
+attr-dev
+bzip2-dev
 dbus
 dbus-broker
 dbus-dev
@@ -9,7 +14,11 @@ dbus-glib
 dbus-glib-dev
 dbus-python
 docbook-xml
+expat
+expat-dev
+expat-staticdev
 gettext
+gettext-dev
 glib
 glib-dev
 gnome-common-dev
@@ -21,18 +30,27 @@ keyutils-dev
 libatasmart
 libblockdev
 libblockdev-dev
-libblockdev-staticdev
 libbytesize
+libcap-dev
+libcap-staticdev
 libconfig-dev
-libconfig-staticdev
+libgcrypt-dev
+libgcrypt-staticdev
 libgudev
 libgudev-dev
 libiscsi
 libiscsi-dev
 libstoragemgmt
 libstoragemgmt-dev
+libunistring
+libunistring-dev
+libxml2-dev
+libxslt
 libxslt-bin
-LVM2-dev
+libxslt-dev
+lz4-dev
+lz4-staticdev
+ncurses-dev
 perl(XML::Parser)
 pygobject
 pygobject-dev
@@ -41,3 +59,8 @@ python-systemd
 systemd
 systemd-dev
 xdg-dbus-proxy
+xz-dev
+zlib-dev
+zlib-staticdev
+zstd-dev
+zstd-staticdev

@@ -11,5 +11,5 @@ libsystemd
 mount
 polkit-agent-1
 polkit-gobject-1
-uuid
 systemd
+uuid
